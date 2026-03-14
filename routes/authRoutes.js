@@ -4,11 +4,12 @@ import { signup, signin, refreshToken, checkEmail, verifyEmail, forgetPassword, 
 import { signupSchema, signinSchema, checkEmailSchema } from "../validations/auth.validation.js";
 import { validate } from "../middleware/validate.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
+import { loginLimiter } from "../config/rateLimiter.js";
 
 const router = express.Router();
 
 router.post("/signup", validate(signupSchema), signup);
-router.post("/signin", validate(signinSchema), signin);
+router.post("/signin", validate(signinSchema),loginLimiter, signin);
 router.post("/logout", logout);
 router.post("/refresh-token", refreshToken);
 router.post("/check-email", validate(checkEmailSchema), checkEmail);
