@@ -1,4 +1,6 @@
+
 // index.js
+import morgan from 'morgan';
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
@@ -8,11 +10,14 @@ import { sanitizeInput } from './middleware/sanitize.js'
 import { validateEnv } from './config/env.js'
 import helmet from 'helmet'
 
+
+
 dotenv.config();
 validateEnv();
 
 const app = express();
 
+app.use(morgan('dev'));       // ✅ add after dotenv, before routes
 app.use(helmet());
 app.use(cors({
     origin: "http://localhost:5173",

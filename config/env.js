@@ -4,10 +4,8 @@ dotenv.config();
 
 export function validateEnv() {
     const requiredEnv = [
-        "DB_HOST",
-        "DB_USER",
-        "DB_PASSWORD",
-        "DB_NAME",
+        "SUPABASE_URL",
+        "SUPABASE_KEY",
         "JWT_SECRET",
         "JWT_EXPIRES_IN",
         "REFRESH_SECRET",
