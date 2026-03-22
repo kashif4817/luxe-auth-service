@@ -131,16 +131,16 @@ export const signin = async (req, res) => {
 
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "Lax",
-            maxAge: rememberMe ? 7 * 24 * 60 * 60 * 1000 : undefined
+            maxAge: rememberMe ? 15 * 60 * 1000 : undefined
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "Lax",
-            maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+            maxAge: rememberMe ? 7 * 24 * 60 * 60 * 1000 : undefined
         })
 
         return sendResponse(res, 201, "Signin successful", {
@@ -160,7 +160,12 @@ export const signin = async (req, res) => {
 
 
 export const logout = async (req, res) => {
-    res.clearCookie("token", {
+    res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "Lax"
+    });
+    res.clearCookie("accessToken", {
         httpOnly: true,
         secure: false,
         sameSite: "Lax"
