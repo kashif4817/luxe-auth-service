@@ -2,15 +2,15 @@ import jwt from 'jsonwebtoken'
 import { sendResponse } from '../utils/sendResponse.js';
 
 export const authMiddleware = (req, res, next) => {
-    console.log("entered in middle ware")
+    console.log("entered in aut.middleware")
     console.log(req.cookies);
-    const token = req.cookies.token;
-    console.log('token', token)
+    const accessToken = req.cookies.accessToken;
+    console.log('token', accessToken)
 
-    if (!token) return sendResponse(res, 401, "No token found or Unauthorized");
+    if (!accessToken) return sendResponse(res, 401, "No token found or Unauthorized");
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET)
         console.log('decoded', decoded);
         req.id = decoded.id;
 

@@ -132,14 +132,14 @@ export const signin = async (req, res) => {
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
             secure: true,
-            sameSite: "Lax",
+            sameSite: "None",
             maxAge: rememberMe ? 15 * 60 * 1000 : undefined
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite: "Lax",
+            sameSite: "None",
             maxAge: rememberMe ? 7 * 24 * 60 * 60 * 1000 : undefined
         })
 
